@@ -9,7 +9,7 @@
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+            background: linear-gradient(to right, #140216, #045df7);
             color: #333;
             overflow-x: hidden;
             display: flex;
@@ -99,8 +99,9 @@
 
         .personal-info {
             font-size: 1.2em;
-            margin: 20px 0;
-            color: #333;
+            margin: 10px 0 ;
+            color: #f5f1f1;
+            padding-bottom:10px;
         }
 
         .buttons-section {
@@ -322,9 +323,21 @@
         <!-- Personal Info -->
         <div class="personal-info">
             <h1>Bhim Ram Chapain</h1>
-            <h2>Class B Registered Auditor, Nepal</h2>
+            <h3>M.Com , B.Ed </h3>
+            <h2>Class B Registered Auditor ,Nepal</h2>
         </div>
-
+        <br>
+   <!-- Dropdown for QR Codes -->
+   <div class="dropdown">
+    <button>QR Codes</button>
+    <div class="dropdown-content">
+        <button onclick="showPopup('images/call_qr.png')">&#x1F4F7; Call QR Code</button>
+        <button onclick="showPopup('images/sms_qr.png')">&#x1F4F7; SMS QR Code</button>
+        <button onclick="showPopup('images/whatsapp_qr.png')">&#x1F4F7; WhatsApp QR Code</button>
+        <button onclick="showPopup('images/facebook_qr.png')">&#x1F4F7; Facebook QR Code</button>
+    </div>
+</div>
+<br>
         <!-- Buttons Section -->
         <div class="buttons-section">
             <!-- Call Button -->
@@ -340,17 +353,7 @@
             <button onclick="window.open('https://www.facebook.com/bhimram.chapain/', '_blank')">&#x1F4FB; Facebook Profile</button>
         </div>
 
-        <!-- Dropdown for QR Codes -->
-        <div class="dropdown">
-            <button>QR Codes</button>
-            <div class="dropdown-content">
-                <button onclick="showPopup('images/call_qr.png')">&#x1F4F7; Call QR Code</button>
-                <button onclick="showPopup('images/sms_qr.png')">&#x1F4F7; SMS QR Code</button>
-                <button onclick="showPopup('images/whatsapp_qr.png')">&#x1F4F7; WhatsApp QR Code</button>
-                <button onclick="showPopup('images/facebook_qr.png')">&#x1F4F7; Facebook QR Code</button>
-            </div>
-        </div>
-
+       
         <!-- Exploding Button for Special Message -->
         <button class="exploding-button" onclick="showHeartfeltMessage()">Click for a Special Message</button>
     </div>
@@ -365,6 +368,7 @@
             <p>With love, Your son,<br>Anup<br>Auckland, New Zealand.</p>
         </div>
     </div>
+  
 
     <!-- Footer Section -->
     <div class="footer">
