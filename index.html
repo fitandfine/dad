@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrating Bhim Ram Chapain</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+            color: #333;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Loading Spinner Styles */
+        .spinner-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+        }
+
+        .spinner {
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .date-time {
+            font-size: 1.2em;
+            color: #00796b;
+        }
+
+        .welcome-message {
+            font-size: 1.5em;
+            margin: 5px 0;
+            color: #004d40;
+        }
+
+        .container {
+            text-align: center;
+            padding: 100px 20px 20px;
+            animation: fadeIn 2s ease-out;
+            width: 100%;
+        }
+
+        .carousel {
+            width: 90%;
+            max-width: 600px;
+            margin: 30px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel img {
+            width: 100%;
+            height: auto; /* Adjust to maintain the aspect ratio */
+            display: block;
+            object-fit: contain; /* Ensures the whole image is visible */
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .carousel img:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        .personal-info {
+            font-size: 1.2em;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .buttons-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .buttons-section button {
+            padding: 15px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #2d98da;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 90%;
+            max-width: 300px;
+        }
+
+        .buttons-section button:hover {
+            background-color: #00695c;
+            transform: scale(1.05);
+        }
+
+        /* Dropdown Menu for QR Codes */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .dropdown button {
+            padding: 15px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #4CAF50; /* Changed color for better appearance */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 90%;
+            max-width: 300px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff; /* Changed background to white */
+            min-width: 200px; /* Increased width for better visibility */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 8px; /* Added rounded corners */
+            overflow: hidden;
+        }
+
+        .dropdown-content button {
+            color: #333; /* Updated text color for better readability */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            border: none;
+            background: none;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .dropdown-content button:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .exploding-button {
+            padding: 20px 30px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #e74c3c;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+            transition: transform 0.3s ease-in-out;
+            width: 90%;
+            max-width: 350px;
+            margin-top: 20px;
+        }
+
+        .exploding-button:hover {
+            transform: scale(1.1);
+            background-color: #c0392b;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .popup {
+            position: fixed;
+            display: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 90%;
+            animation: fadeIn 0.5s ease-in-out;
+            color: #333;
+            font-size: 1.2em;
+            position: relative;
+        }
+
+        .popup-content p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #e74c3c;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+            color: #c0392b;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(0, 77, 64, 0.9);
+            width: 100%;
+        }
+
+        .footer button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #004d40;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .footer button:hover {
+            background-color: #00251a;
+        }
+
+        @media (max-width: 768px) {
+            .welcome-message {
+                font-size: 1.3em;
+            }
+
+            .buttons-section button,
+            .exploding-button {
+                font-size: 0.9em;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Music -->
+    <audio id="background-music" src="images/bg_music.mp3" autoplay loop></audio>
+
+    <!-- Loading Spinner -->
+    <div class="spinner-container" id="spinner-container">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header with Current Date and Time -->
+    <div class="header">
+        <div class="date-time" id="date-time"></div>
+        <div class="welcome-message" id="welcome-message">Celebrating Bhim Ram Chapain</div>
+    </div>
+
+    <div class="container">
+        <div class="carousel" id="carousel">
+            <img src="images/1.jpg" alt="Photo 1">
+            <img src="images/2.jpg" alt="Photo 2">
+            <img src="images/3.jpg" alt="Photo 3">
+            <img src="images/4.jpg" alt="Photo 4">
+            <img src="images/5.jpg" alt="Photo 5">
+            <img src="images/6.jpg" alt="Photo 6">
+            <img src="images/7.jpg" alt="Photo 7">
+            
+        </div>
+
+        <!-- Personal Info -->
+        <div class="personal-info">
+            <h1>Bhim Ram Chapain</h1>
+            <h2>Class B Registered Auditor, Nepal</h2>
+        </div>
+
+        <!-- Buttons Section -->
+        <div class="buttons-section">
+            <!-- Call Button -->
+            <button onclick="window.open('tel:+9779848517777', '_self')">&#x1F4DE; Call</button>
+
+            <!-- SMS Button -->
+            <button onclick="window.open('sms:+9779848517777', '_self')">&#x1F4F1; SMS</button>
+
+            <!-- WhatsApp Button -->
+            <button onclick="sendWhatsApp()">&#x1F4AC; WhatsApp Message</button>
+
+            <!-- Facebook Button -->
+            <button onclick="window.open('https://www.facebook.com/bhimram.chapain/', '_blank')">&#x1F4FB; Facebook Profile</button>
+        </div>
+
+        <!-- Dropdown for QR Codes -->
+        <div class="dropdown">
+            <button>QR Codes</button>
+            <div class="dropdown-content">
+                <button onclick="showPopup('images/call_qr.png')">&#x1F4F7; Call QR Code</button>
+                <button onclick="showPopup('images/sms_qr.png')">&#x1F4F7; SMS QR Code</button>
+                <button onclick="showPopup('images/whatsapp_qr.png')">&#x1F4F7; WhatsApp QR Code</button>
+                <button onclick="showPopup('images/facebook_qr.png')">&#x1F4F7; Facebook QR Code</button>
+            </div>
+        </div>
+
+        <!-- Exploding Button for Special Message -->
+        <button class="exploding-button" onclick="showHeartfeltMessage()">Click for a Special Message</button>
+    </div>
+
+    <!-- Popup for Heartfelt Message -->
+    <div class="popup" id="heartfelt-popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="hidePopup('heartfelt-popup')">&times;</span>
+            <p>Dear Dad,</p>
+            <p>Thank you for everything you have done for me. You have worked so hard, loved me so much, and made many sacrifices to give me a good life. You have always protected me and guided me with wisdom. Your time and love mean everything to me. I am grateful to be your son.<br> You are the first hero of my life. I remember all the wonderful things you have done for me. I just want you to stay healthy. You have worked enough, please retire from today. I will be one proud son to fund your retirement. <br>You're the best. <br>I love you to the moon and back. Make this the starting point of your thoughts. Youre a blessing to people around. Keep Vibing Dad!</p>
+            <p>Happy Father's Day!</p>
+            <p>With love, Your son,<br>Anup<br>Auckland, New Zealand.</p>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <button onclick="showDeveloperInfo()">About Developer</button>
+        <button onclick="sharePage()">Share This Page</button>
+        <button onclick="showPopup('images/page_qr.png')">Share QR</button>
+    </div>
+
+    <!-- Popup for Developer Info -->
+    <div class="popup" id="developer-popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="hidePopup('developer-popup')">&times;</span>
+            <p>This page was developed with love by your son. Thank you for being an inspiration, Dad!</p>
+            <button onclick="sendDeveloperEmail()">Send Email to Developer</button>
+        </div>
+    </div>
+
+    <!-- Popup Template -->
+    <div class="popup" id="generic-popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="hidePopup('generic-popup')">&times;</span>
+            <img id="popup-image" src="" alt="QR Code" style="max-width: 300px;">
+        </div>
+    </div>
+
+    <script>
+        // Display Current Date and Time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('date-time').textContent = now.toLocaleDateString('en-US', options);
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        // Carousel Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('#carousel img');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.style.display = i === index ? 'block' : 'none';
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        setInterval(nextSlide, 4000); // Change slide every 4 seconds
+        showSlide(currentSlide); // Show first slide initially
+
+    // Welcome Message Logic
+const thankYouMessages = [
+    "Thank you for always being my rock.",
+    "Your love has been my greatest gift.",
+    "You taught me what it means to be strong.",
+    "Thank you for guiding me through life's challenges.",
+    "Your sacrifices have given me a better life.",
+    "I am who I am today because of you.",
+    "Your wisdom has been my guiding light.",
+    "Thank you for never giving up on me.",
+    "You showed me the meaning of hard work.",
+    "Your love has shaped my world.",
+    "Thank you for your endless support.",
+    "You are my first hero and my biggest inspiration.",
+    "Your strength gave me courage.",
+    "Thank you for believing in me, always.",
+    "I am forever grateful for your guidance.",
+    "You’ve always been there when I needed you most.",
+    "Your protection made me feel safe.",
+    "Thank you for teaching me right from wrong.",
+    "You are the best role model I could ask for.",
+    "Your kindness is something I will always cherish.",
+    "Thank you for your patience with me.",
+    "I am proud to be your son.",
+    "Your love is my greatest strength.",
+    "Thank you for being my father and my friend.",
+    "I admire your dedication and commitment.",
+    "Your life lessons have been invaluable.",
+    "Thank you for showing me the path to follow.",
+    "You have always been my biggest supporter.",
+    "Your words of wisdom are always in my heart.",
+    "Thank you for all the sacrifices you made for me.",
+    "You taught me the value of family.",
+    "Your love is my foundation.",
+    "Thank you for being the best dad in the world.",
+    "I am thankful for every moment we’ve shared.",
+    "Your support has meant everything to me.",
+    "Thank you for all the times you’ve been there for me.",
+    "Your love has been a constant in my life.",
+    "You are my guide, my teacher, my hero.",
+    "Thank you for your unconditional love.",
+    "I am grateful for all you’ve done for me.",
+    "Your strength inspires me every day.",
+    "Thank you for teaching me to be brave.",
+    "You are my compass in life.",
+    "Thank you for all the life lessons.",
+    "Your faith in me has been my motivation.",
+    "Thank you for always understanding me.",
+    "I appreciate every little thing you do.",
+    "Your dedication is unmatched.",
+    "Thank you for being you.",
+    "Your love is my safe place.",
+    "Thank you for the countless memories.",
+    "I am thankful for your wisdom and guidance.",
+    "Your patience has been my teacher.",
+    "Thank you for showing me what love is.",
+    "You are my mentor and my guide.",
+    "Thank you for all the life lessons.",
+    "Your kindness has shaped who I am.",
+    "Thank you for being my hero.",
+    "Your love has been my shield.",
+    "Thank you for always believing in me.",
+    "You taught me the value of honesty.",
+    "Your encouragement has meant the world to me.",
+    "Thank you for your endless love and support.",
+    "You are the reason for my strength.",
+    "Thank you for all the sacrifices you’ve made.",
+    "Your love is my greatest treasure.",
+    "Thank you for your constant support.",
+    "You are my role model and my guide.",
+    "Thank you for teaching me the meaning of love.",
+    "Your support has helped me grow.",
+    "Thank you for always being there for me.",
+    "Your love has been my guiding light.",
+    "Thank you for your unwavering faith in me.",
+    "You taught me to never give up.",
+    "Your sacrifices have not gone unnoticed.",
+    "Thank you for your love and protection.",
+    "You have always been my pillar of strength.",
+    "Thank you for teaching me the value of hard work.",
+    "Your love has been my greatest blessing.",
+    "Thank you for all the times you’ve been there for me.",
+    "You are my first hero and my biggest inspiration.",
+    "Thank you for being the best dad I could ask for.",
+    "Your love has given me the courage to face anything.",
+    "Thank you for teaching me to be strong.",
+    "Your guidance has shaped my life.",
+    "Thank you for always supporting my dreams.",
+    "Your love has been my constant source of comfort.",
+    "Thank you for your endless patience and understanding.",
+    "You taught me the value of integrity.",
+    "Thank you for being my biggest cheerleader.",
+    "Your love has made me who I am today.",
+    "Thank you for all the sacrifices you’ve made for our family.",
+    "You are my mentor, my guide, my hero.",
+    "Thank you for teaching me to be kind and strong.",
+    "Your love has been my strength in tough times.",
+    "Thank you for being my father and my friend.",
+    "Your wisdom is a gift I cherish every day.",
+    "Thank you for always guiding me with love.",
+    "You are my hero, my teacher, my dad.",
+    "Thank you for everything, Dad. I love you."
+];
+
+        function showThankYouMessage() {
+            const messageIndex = Math.floor(Math.random() * thankYouMessages.length);
+            document.getElementById('welcome-message').innerText = thankYouMessages[messageIndex];
+        }
+
+        setInterval(showThankYouMessage, 3000); // Change message every 3 seconds
+        showThankYouMessage(); // Initial message
+
+        // Send WhatsApp Message Function
+        function sendWhatsApp() {
+            window.open("https://wa.me/9779848517777?text=Hello%20Dad%20I%20just%20wanted%20to%20say%20thank%20you!", "_blank");
+        }
+
+        // Show Heartfelt Message Popup
+        function showHeartfeltMessage() {
+            document.getElementById('heartfelt-popup').style.display = 'flex';
+        }
+
+        // Hide Popup
+        function hidePopup(popupId) {
+            document.getElementById(popupId).style.display = 'none';
+        }
+
+        // Show Generic Popup for QR Codes
+        function showPopup(imageSrc) {
+            const popup = document.getElementById('generic-popup');
+            const popupImage = document.getElementById('popup-image');
+            popupImage.src = imageSrc;
+            popup.style.display = 'flex';
+        }
+
+        // Show Developer Info Popup
+        function showDeveloperInfo() {
+            document.getElementById('developer-popup').style.display = 'flex';
+        }
+
+        // Share Page Function
+        function sharePage() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Celebrating Bhim Ram Chapain',
+                    text: 'A special tribute page for Bhim Ram Chapain',
+                    url: window.location.href
+                });
+            } else {
+                alert('Sharing is not supported on this device. Please use the QR code instead.');
+            }
+        }
+
+        // Send Email to Developer
+        function sendDeveloperEmail() {
+            window.location.href = "mailto:pleasedontgetconfused@gmail.com?subject=From Dad's website";
+        }
+
+        // Hide spinner when page is fully loaded
+        window.onload = function() {
+            document.getElementById('spinner-container').style.display = 'none';
+        };
+    </script>
+</body>
+</html>
